@@ -26,7 +26,7 @@ public class Onepage {
         Document doc;
         String linkText = "";
         try {
-            doc = Jsoup.connect(url).get();
+            doc = Jsoup.connect(url).timeout(1000000).get();
             
             Elements contents = doc.getElementsByAttributeValue("itemprop", "articleBody");
             

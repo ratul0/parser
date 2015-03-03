@@ -26,7 +26,7 @@ public class Onepage {
         Document doc;
         String linkText = "";
         try {
-            doc = Jsoup.connect(url).timeout(1000000).get();
+            doc = Jsoup.connect(url).timeout(0).get();
             
             Elements contents = doc.getElementsByAttributeValue("itemprop", "articleBody");
             
@@ -49,7 +49,7 @@ public class Onepage {
         
         Document doc;
         try {
-            doc = Jsoup.connect(text).get();
+            doc = Jsoup.connect(text).timeout(0).get();
             Elements contents = doc.getElementsByAttributeValueContaining("class", "the_news_group");
             //System.out.println(contents);
             for (Element content : contents) {

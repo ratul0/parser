@@ -33,7 +33,7 @@ public class Testparser {
         
         for(int i=1;i<50;i++){
             try {
-                    bw=new BufferedWriter(new FileWriter(new File("output"+i+".txt"),false));
+                    bw=new BufferedWriter(new FileWriter(new File("dataset/links/link"+i+".txt"),false));
                 } catch (IOException ex) {
                     Logger.getLogger(Testparser.class.getName()).log(Level.SEVERE, null, ex);
                 }

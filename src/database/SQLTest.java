@@ -23,31 +23,38 @@ public class SQLTest {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        
-        Connection con = null;
-        PreparedStatement pst = null;
-
     
-        String url = "jdbc:postgresql://localhost/thesis";
-        String user = "postgres";
-        String password = "1234";
+    public static void main( String args[] )
+     {
+       Connection c = null;
+       Statement stmt = null;
+       try {
+       Class.forName("org.postgresql.Driver");
+         c = DriverManager
+            .getConnection("jdbc:postgresql://localhost/thesis?searchpath=public",
+            "postgres", "1234");
+         c.setAutoCommit(false);
+         System.out.println("Opened database successfully");
 
-        try {
-            int id = 6;
-            String author = "Trygve Gulbranssen";
-            con = DriverManager.getConnection(url, user, password);
-
-            String stm = "INSERT INTO prothom-alo (link, status) VALUES(?, ?)";
-            pst = con.prepareStatement(stm);
-            pst.setString(1, author);
-            pst.setInt(2, id);                    
-            pst.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Error");
-
-        } finally {
-        }
-    }
+         stmt = c.createStatement();
+         ResultSet rs = stmt.executeQuery( "SELECT * FROM prothomalo" );
+         while ( rs.next() ) {
+            int id = rs.getInt("id");
+            String  link = rs.getString("link");
+            int status  = rs.getInt("status");
+            System.out.println( "ID = " + id );
+            System.out.println( "Link = " + link );
+            System.out.println( "Status = " + status );
+            System.out.println();
+         }
+         rs.close();
+         stmt.close();
+         c.close();
+       } catch ( Exception e ) {
+         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+         System.exit(0);
+       }
+       System.out.println("Operation done successfully");
+     }
     
 }

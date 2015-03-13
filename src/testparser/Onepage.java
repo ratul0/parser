@@ -49,24 +49,37 @@ public class Onepage {
         
         Document doc;
         try {
+            
             doc = Jsoup.connect(text).timeout(0).get();
+            
             Elements contents = doc.getElementsByAttributeValueContaining("class", "the_news_group");
-            //System.out.println(contents);
-            for (Element content : contents) {
-              Elements allNews = content.getElementsByAttributeValueContaining("class", "each_news");
-              //System.out.println(allNews);
-              for(Element eachNews : allNews){
-                  Elements links = eachNews.getElementsByAttributeValueContaining("class", "more_link");
-                  //System.out.println(links);
-                  for (Element link : links) {
-                    String linkHref = link.attr("href");
-                      //System.out.println(custom+linkHref);
-                    dataLinks.add(custom+linkHref);
-                  }
-              }
+            //System.out.println(contents.isEmpty());
+            if(!contents.isEmpty()){
+                
+                    for (Element content : contents) {
+                        Elements allNews = content.getElementsByAttributeValueContaining("class", "each_news");
+                        //System.out.println(allNews);
+                        for(Element eachNews : allNews){
+                            Elements links = eachNews.getElementsByAttributeValueContaining("class", "more_link");
+                            
+                            //System.out.println(links);
+                            for (Element link : links) {
+                              String linkHref = link.attr("href");
+                                //System.out.println(custom+linkHref);
+                              dataLinks.add(custom+linkHref);
+                            }
+                        }
+                    }
+                
             }
+            else{
+                throw new NullPointerException();
+            }
+            //System.out.println(contents);
+            
             
         } catch (IOException ex) {
+            System.out.println("test");
             Logger.getLogger(Testparser.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dataLinks;

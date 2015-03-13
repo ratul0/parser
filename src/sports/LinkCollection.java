@@ -6,10 +6,15 @@
 
 package sports;
 
+import CustomExceptions.TerminateException;
+import Storage.Connect;
+import static Storage.Connect.insertData;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,34 +26,55 @@ import testparser.Testparser;
  * @author yousufkhan
  */
 public class LinkCollection {
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         ArrayList<String> dataLinks = new ArrayList<String>();
-        String links;
-        
-        
-        for(int i=1025;i<1040;i++){
-            
+        boolean flag = true;
+        int i = 1;
+
+        try {
+            Connection connection = Connect.CreateConntection();
             try {
-                dataLinks = Onepage.getLinks("http://www.prothom-alo.com/sports", "" + i);
+                Statement stmtement = Connect.CreateStatement(connection);
+
+                while (flag) {
+
+                    try {
+                        dataLinks = Onepage.getLinks("http://www.prothom-alo.com/sports", "" + i);
+
+                    } catch (Exception e) {
+                        System.out.println("terminate");
+                        flag = false;
+                        break;
+                    }
+
+                    for (String link : dataLinks) {
+                        try {
+                            Connect.insertData(stmtement, link);
+                            connection.commit();
+                            System.out.println(link);
+                        } catch (Exception e) {
+                            flag = false;
+                        }
+                    }
+                    i++;
+
+                }
+
+                stmtement.close();
+                connection.commit();
+                connection.close();
             } catch (Exception e) {
-                System.out.println("terminate");
-                break;
+                connection.close();
             }
-            
-            
-            for(String link : dataLinks){
-                
-                System.out.println(link);
-            
-            }
-            
+
+        } catch (Exception e) {
+            System.out.println("Failed to create connection.");
         }
-        
 
     }
-    
+
 }

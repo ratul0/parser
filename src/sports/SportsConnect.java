@@ -26,10 +26,10 @@ public class SportsConnect {
     public static Connection CreateConntection(){
         Connection c = null;
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             c = DriverManager
-                    .getConnection("jdbc:postgresql://localhost/thesis?searchpath=public",
-                            "postgres", "a");
+                    .getConnection("jdbc:mysql://localhost/thesis",
+                            "root", "");
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
             return c;

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package environment;
+package entertainment;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -16,25 +16,21 @@ import testparser.Onepage;
  *
  * @author yousufkhan
  */
-public class EnvironmentLinkCollection {
-    
-    /**
-     * @param args the command line arguments
-     */
+public class EntertainmentLinkCollection {
     public static void main(String[] args) {
         ArrayList<String> dataLinks = new ArrayList<String>();
         boolean flag = true;
         int i = 1;
 
         try {
-            Connection connection = EnvironmentConnect.CreateConntection();
+            Connection connection = EntertainmentConnect.CreateConntection();
             try {
-                Statement stmtement = EnvironmentConnect.CreateStatement(connection);
+                Statement stmtement = EntertainmentConnect.CreateStatement(connection);
 
                 while (flag) {
 
                     try {
-                        dataLinks = Onepage.getTagLinks("http://www.prothom-alo.com/bangladesh", "" + i,"" + 83);
+                        dataLinks = Onepage.getLinks("http://www.prothom-alo.com/entertainment", "" + i);
 
                     } catch (Exception e) {
                         System.out.println("terminate");
@@ -44,7 +40,7 @@ public class EnvironmentLinkCollection {
 
                     for (String link : dataLinks) {
                         try {
-                            EnvironmentConnect.insertData(stmtement, link);
+                            EntertainmentConnect.insertData(stmtement, link);
                             connection.commit();
                             System.out.println(link);
                         } catch (Exception e) {

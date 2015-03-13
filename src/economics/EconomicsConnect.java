@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package environment;
+package economics;
 
+import entertainment.*;
 import CustomExceptions.TerminateException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,7 +17,7 @@ import java.sql.Statement;
  *
  * @author yousufkhan
  */
-public class EnvironmentConnect {
+public class EconomicsConnect {
     
     public static Connection CreateConntection(){
         Connection c = null;
@@ -51,7 +52,7 @@ public class EnvironmentConnect {
     public static void insertData(Statement stmt, String link) {
         
         try {
-            String sql = "INSERT INTO environment (link,status) "
+            String sql = "INSERT INTO economics (link,status) "
                     + "VALUES ('"+link+"',0);";
             try {
                 stmt.executeUpdate(sql);

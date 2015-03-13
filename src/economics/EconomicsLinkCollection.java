@@ -4,37 +4,33 @@
  * and open the template in the editor.
  */
 
-package environment;
+package economics;
+
 
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
-import sports.SportsConnect;
 import testparser.Onepage;
 
 /**
  *
  * @author yousufkhan
  */
-public class EnvironmentLinkCollection {
-    
-    /**
-     * @param args the command line arguments
-     */
+public class EconomicsLinkCollection {
     public static void main(String[] args) {
         ArrayList<String> dataLinks = new ArrayList<String>();
         boolean flag = true;
         int i = 1;
 
         try {
-            Connection connection = EnvironmentConnect.CreateConntection();
+            Connection connection = EconomicsConnect.CreateConntection();
             try {
-                Statement stmtement = EnvironmentConnect.CreateStatement(connection);
+                Statement stmtement = EconomicsConnect.CreateStatement(connection);
 
                 while (flag) {
 
                     try {
-                        dataLinks = Onepage.getTagLinks("http://www.prothom-alo.com/bangladesh", "" + i,"" + 83);
+                        dataLinks = Onepage.getLinks("http://www.prothom-alo.com/economy", "" + i);
 
                     } catch (Exception e) {
                         System.out.println("terminate");
@@ -44,7 +40,7 @@ public class EnvironmentLinkCollection {
 
                     for (String link : dataLinks) {
                         try {
-                            EnvironmentConnect.insertData(stmtement, link);
+                            EconomicsConnect.insertData(stmtement, link);
                             connection.commit();
                             System.out.println(link);
                         } catch (Exception e) {

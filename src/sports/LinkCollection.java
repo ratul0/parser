@@ -36,9 +36,9 @@ public class LinkCollection {
         int i = 1;
 
         try {
-            Connection connection = Connect.CreateConntection();
+            Connection connection = SportsConnect.CreateConntection();
             try {
-                Statement stmtement = Connect.CreateStatement(connection);
+                Statement stmtement = SportsConnect.CreateStatement(connection);
 
                 while (flag) {
 
@@ -53,7 +53,7 @@ public class LinkCollection {
 
                     for (String link : dataLinks) {
                         try {
-                            Connect.insertData(stmtement, link);
+                            SportsConnect.insertData(stmtement, link);
                             connection.commit();
                             System.out.println(link);
                         } catch (Exception e) {

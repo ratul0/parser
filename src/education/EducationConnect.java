@@ -6,6 +6,7 @@
 
 package education;
 
+import sports.*;
 import Storage.*;
 import CustomExceptions.TerminateException;
 import java.sql.Connection;
@@ -26,10 +27,10 @@ public class EducationConnect {
     public static Connection CreateConntection(){
         Connection c = null;
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             c = DriverManager
-                    .getConnection("jdbc:postgresql://localhost/thesis?searchpath=public",
-                            "postgres", "1234");
+                    .getConnection("jdbc:mysql://localhost/thesis",
+                            "root", "");
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
             return c;

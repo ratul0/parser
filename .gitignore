@@ -7,3 +7,4 @@ nbactions.xml
 nb-configuration.xml
 .nb-gradle/
 *.txt
+/link-parser/nbproject/private/
